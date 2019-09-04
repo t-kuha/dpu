@@ -16,9 +16,7 @@ pkg_*/include/dnndk.h
 pkg_*/include/dputils.h
 pkg_*/include/n2cube.h
 pkg_*/lib/echarts.js
-pkg_*/lib/libdputils.so.3.3
+pkg_*/lib/libdputils.so*
 pkg_*/lib/libdsight.a
 pkg_*/lib/libn2cube.so
-pkg_*/lib/libdputils.so.3.1
-pkg_*/lib/libdputils.so.3.4
 pkg_*/lib/libhineon.so
