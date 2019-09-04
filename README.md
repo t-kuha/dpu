@@ -2,9 +2,9 @@
 
 - __Environment__
 
-  - DNNDK: v3.1
-  - DPU: v3.0 (TensorFlow v1.12)
-  - PetaLinux/XSDK: 2018.3
+  - DNNDK: v3.1 (TensorFlow v1.12)
+  - DPU: v3.0
+  - PetaLinux/XSDK: 2019.1
   - Python: 3.6.9 (miniconda)
   - CPU only (otherwise specified)
 
