@@ -54,7 +54,7 @@ int main()
 	for (int n = 0; n < 10000; n++){
 		// File name
 		std::ostringstream oss;
-	    oss << "_mnist_png/" << 
+	    oss << "_mnist_test" << 
 			std::setw(4) << std::setfill('0') << n << 
 			std::setw(0) << ".png";
 
