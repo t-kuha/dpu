@@ -54,7 +54,40 @@ INFO: Output:
   deploy_model: _quant/deploy_model.pb
 ```
 
-## Deploy model
+## Zynq MPSoC
+
+### Deploy model
+
+```shell-session
+# Generate .dcf file
+$ dlet -f <.hwh file>
+
+# Deploy
+$ dnnc-dpu1.4.0 \
+--parser=tensorflow \
+--frozen_pb=_quant/deploy_model.pb \
+--dcf=<.dcf file generated above> \
+--cpu_arch=arm64 \
+--output_dir=_mpsoc \
+--net_name=mnist \
+--save_kernel \
+--mode=normal
+```
+
+### Create application
+
+```shell-session
+# Build
+$ ${CXX} main.cpp \
+-I../pkg_mpsoc/include -L../pkg_mpsoc/lib \
+-lopencv_core -lopencv_highgui -lopencv_imgproc -lopencv_imgcodecs -lopencv_videoio \
+-ln2cube -ldputils -lhineon \
+_mpsoc/dpu_mnist.elf -o app_mnist.elf
+```
+
+## Zynq-7000
+
+### Deploy model
 
 ```shell-session
 # Generate .dcf file
@@ -72,32 +105,7 @@ $ dnnc-dpu1.4.0 \
 --mode=normal
 ```
 
-- Result:
-
-```
-DNNC Kernel topology "mnist_kernel_graph.jpg" for network "mnist"
-DNNC kernel list info for network "mnist"
-                               Kernel ID : Name
-                                       0 : mnist
-
-                             Kernel Name : mnist
---------------------------------------------------------------------------------
-                             Kernel Type : DPUKernel
-                               Code Size : 7.49KB
-                              Param Size : 0.95MB
-                           Workload MACs : 3.30MOPS
-                         IO Memory Space : 7.31KB
-                              Mean Value : 0, 0, 0, 
-                              Node Count : 4
-                            Tensor Count : 5
-                    Input Node(s)(H*W*C)
-                        conv2d_Conv2D(0) : 28*28*1
-                   Output Node(s)(H*W*C)
-                       dense_1_MatMul(0) : 1*1*10
-```
-
-## Create application
-
+### Create application
 
 ```shell-session
 # Build
@@ -112,19 +120,18 @@ _deploy/dpu_mnist.elf -o app_mnist.elf
 
 ## Run
 
+- Copy _app_mnist.elf_ & _\_mnist_test_ to target board
+
 - Console output would look like this:
 
 ```shell-session
-root@sd_blk:/media# ./app_mnist.elf
+root@ultra96:~# ./app_mnist.elf
 ------ DPU (mnist) ------
-Alignment trap: app_mnist.elf (1290) PC=0xb6f265bc Instr=0xe9d60102 Address=0xb6181582 FSR 0x011
-Alignment trap: app_mnist.elf (1290) PC=0xb6f265bc Instr=0xe9d60102 Address=0xb6181622 FSR 0x011
-Alignment trap: app_mnist.elf (1290) PC=0xb6f265bc Instr=0xe9d60102 Address=0xb61816c2 FSR 0x011
-Alignment trap: app_mnist.elf (1290) PC=0xb6f265bc Instr=0xe9d60102 Address=0xb6181762 FSR 0x011
 ..... Pre-loading Images .....
 ..... Start Inference .....
 ..... Inference Result .....
 7, 2, 1, 0, 4, 1, 4, 9, 5, 9, 0, 6, 9, 0, 1, 5, 9, 7, 3, 4,
+9, 6, 6, 5, 4, 0, 7, 4, 0, 1, 3, 1, 3, 4, 7, 2, 7, 1, 2, 1,
 
 ...
 
