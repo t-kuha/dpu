@@ -10,6 +10,7 @@ _*
 # Downloaded files
 *.tar.xz
 *.tar.gz
+*.zip
 
 # DNNDK
 pkg_*/include/dnndk.h
@@ -20,3 +21,7 @@ pkg_*/lib/libdputils.so*
 pkg_*/lib/libdsight.a
 pkg_*/lib/libn2cube.so
 pkg_*/lib/libhineon.so
+
+# Misc
+*.lnk
+*.url
