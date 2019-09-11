@@ -23,5 +23,6 @@ pkg_*/lib/libn2cube.so
 pkg_*/lib/libhineon.so
 
 # Misc
+*.code-workspace
 *.lnk
 *.url
