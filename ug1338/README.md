@@ -42,21 +42,30 @@ $ decent_q quantize \
 - Result:
 
 ```shell-session
-INFO: Checking Float Graph...
-INFO: Float Graph Check Done.
-INFO: Calibrating for 100 iterations...
-100% (100 of 100) |#########################| Elapsed Time: 0:01:28 Time:  0:01:28
-INFO: Calibration Done.
-INFO: Generating Deploy Model...
-[DEPLOY WARNING] Batchnorm Node (batch_normalization/FusedBatchNorm/add + batch_normalization/FusedBatchNorm/mul) is not folded. It will be converted to a Scale node (batch_normalization/FusedBatchNorm/add) to deploy on DPU. This may cause accuracy decrease and error for DPU compiler.
-[DEPLOY WARNING] Batchnorm Node (batch_normalization_1/FusedBatchNorm/add + batch_normalization_1/FusedBatchNorm/mul) is not folded. It will be converted to a Scale node (batch_normalization_1/FusedBatchNorm/add) to deploy on DPU. This may cause accuracy decrease and error for DPU compiler.
-[DEPLOY WARNING] Batchnorm Node (batch_normalization_2/FusedBatchNorm/add + batch_normalization_2/FusedBatchNorm/mul) is not folded. It will be converted to a Scale node (batch_normalization_2/FusedBatchNorm/add) to deploy on DPU. This may cause accuracy decrease and error for DPU compiler.
-[DEPLOY WARNING] Batchnorm Node (batch_normalization_3/batchnorm/add_1 + batch_normalization_3/batchnorm/mul_1) is not folded. It will be converted to a Scale node (batch_normalization_3/batchnorm/add_1) to deploy on DPU. This may cause accuracy decrease and error for DPU compiler.
-INFO: Deploy Model Generated.
-********************* Quantization Summary *********************      
-INFO: Output:       
-  quantize_eval_model: ./quantize_results/quantize_eval_model.pb       
-  deploy_model: ./quantize_results/deploy_model.pb
+100% (100 of 100) |############################| Elapsed Time: 0:00:36 Time:  0:00:36
+ Top 1 accuracy with validation set: 0.8064
+ Top 5 accuracy with validation set: 0.9873
+FINISHED!
+```
+
+## Evaluate quantized graph
+
+```shell-session
+$  python eval_graph.py \
+--graph ./_quant/quantize_eval_model.pb \
+--input_node images_in \
+--output_node dense_1/BiasAdd
+```
+
+- Result:
+
+```
+WARNING:tensorflow:From eval_graph.py:77: FastGFile.__init__ (from tensorflow.python.platform.gfile) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.gfile.GFile.
+100% (100 of 100) |############################| Elapsed Time: 0:00:37 Time:  0:00:37
+ Top 1 accuracy with validation set: 0.8064
+ Top 5 accuracy with validation set: 0.9873
 ```
 
 ## Zynq MPSoC

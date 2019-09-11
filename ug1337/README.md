@@ -54,6 +54,23 @@ INFO: Output:
   deploy_model: _quant/deploy_model.pb
 ```
 
+## Evaluate quantized graph
+
+```shell-session
+$ python eval_graph.py \
+--graph ./_quant/quantize_eval_model.pb \
+--input_node images_in \
+--output_node dense_1/BiasAdd
+```
+
+- Result:
+
+```shell-session
+ Top 1 accuracy with validation set: 0.9904
+ Top 5 accuracy with validation set: 0.9999
+FINISHED!
+```
+
 ## Zynq MPSoC
 
 ### Deploy model
