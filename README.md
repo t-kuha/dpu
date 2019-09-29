@@ -43,4 +43,13 @@
 
   - Install TensorFlow
 
-- Then go to the project direrctory of your choice
+***
+
+## Go to the project direrctory of your choice
+
+- For example:
+
+```shell-session
+# MNIST example
+$ cd ug1337
+```
