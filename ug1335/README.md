@@ -142,7 +142,12 @@ $ ${CXX} _src/miniVggNet/top5_main.cc \
 -lopencv_core -lopencv_highgui -lopencv_imgproc -lopencv_imgcodecs -lopencv_videoio \
 -ln2cube -ldputils -lhineon -lpthread \
 _deploy/miniVggNet/dpu_miniVggNet_0.elf -o ug1335_minivggnet.elf
-
+$ ${CXX} _src/miniGoogleNet/top5_main.cc \
+-I../pkg_mpsoc/include -L../pkg_mpsoc/lib \
+-lopencv_core -lopencv_highgui -lopencv_imgproc -lopencv_imgcodecs -lopencv_videoio \
+-ln2cube -ldputils -lhineon -lpthread \
+_deploy/miniGoogleNet/dpu_miniGoogleNet_0.elf \
+-o ug1335_minigooglenet.elf
 ```
 
 ## Run
@@ -153,7 +158,7 @@ root@ultra96:~# ./ug1335_minivggnet.elf 4 > /tmp/vggnet.log
 
 - Result
 
-```text
-[Time]991580us
-[FPS]1008.49
-```
+| Network       | Thread | fps     |
+|:-------------:|--------|---------|
+| miniGoogleNet | 4      | 1008.49 |
+| miniVggNet    | 4      | 56.1674 |
