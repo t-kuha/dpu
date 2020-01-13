@@ -1,2 +1,3 @@
 # dpu
-Xilinx DPU/DNNDK example
+
+Xilinx Vitis-AI example
